@@ -108,4 +108,4 @@ $ cp commit-msg ~/.git_template/hooks
 $ git config --global init.templatedir ~/.git_template 
 ```
 
-具体 commit-msg 文件可以点击[查看详情](https://github.com/jwchan1996/commit-msg.git)
+具体 `commit-msg` 文件可以点击[查看详情](https://github.com/jwchan1996/commit-msg.git)
