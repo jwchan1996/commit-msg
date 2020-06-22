@@ -1,0 +1,51 @@
+#!/bin/sh
+
+MSG=`awk '{printf("%s",$0)}' $1`
+
+if [ ${#MSG} -lt 10 ]  
+  then
+    echo "-------------------------------------------------------------------"
+    echo "当前提交的 commit message 为: $MSG"
+    echo "commit message 只有${#MSG}字符"
+    echo "message的长度不能小于10, 本次提交失败，请完善commit message，再提交"
+    echo "-------------------------------------------------------------------"
+    exit 1
+fi
+
+if [[ $MSG =~ ^feat:[[:blank:]].* ]] || 
+   [[ $MSG =~ ^feat\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^fix:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^fix\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^style:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^style\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^refactor:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^refactor\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^docs:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^docs\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^test:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^test\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^chore:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^chore\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]feat:[[:blank:]].* ]] || 
+   [[ $MSG =~ ^revert:[[:blank:]]feat\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]fix:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]fix\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]style:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]style\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]refactor:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]refactor\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]docs:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]docs\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]test:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]test\(.*\):[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]chore:[[:blank:]].* ]] ||
+   [[ $MSG =~ ^revert:[[:blank:]]chore\(.*\):[[:blank:]].* ]]
+  then
+    exit 0
+  else
+    echo "-------------------------------------------------------------------"
+    echo "当前提交的 commit message 为: $MSG"
+    echo "本次提交失败，请参考 commit message 提交规范"
+    echo "-------------------------------------------------------------------"
+    exit 1
+fi
